@@ -1,0 +1,7 @@
+# ModelSim / QuestaSim generation outputs
+work/
+transcript
+vsim.wlf
+*.mpf
+*.ini
+*.bak
