@@ -139,6 +139,21 @@ module sync_fifo_tb;
         if (!empty)
             $error("FIFO didn't become empty");
 
+        // Second round to check wrap around bit behavior
+        // Test full
+        for (int i = 0; i < DEPTH; i++)
+            write_fifo(i);
+
+        if (!full)
+            $error("FIFO didn't become full");
+
+        // Test empty
+        for (int i = 0; i < DEPTH; i++)
+            read_fifo(data);
+
+        if (!empty)
+            $error("FIFO didn't become empty");
+
         #20;
     end
 endmodule
