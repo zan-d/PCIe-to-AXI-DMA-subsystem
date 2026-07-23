@@ -1,5 +1,5 @@
 vlib work
-vlog ../rtl/rr_arbiter.sv
-vlog ../tb/tb_rr_arbiter.sv
+vlog ../rtl/tlp_parser.sv
+vlog ../tb/tb_tlp_parser.sv
 
-vsim -voptargs=+acc work.rr_arbiter_tb
+vsim -voptargs=+acc work.tlp_parser_tb
