@@ -1,5 +1,5 @@
 vlib work
-vlog ../rtl/sync_fifo.sv
-vlog ../tb/tb_sync_fifo.sv
+vlog ../rtl/rr_arbiter.sv
+vlog ../tb/tb_rr_arbiter.sv
 
-vsim -voptargs=+acc work.sync_fifo_tb
+vsim -voptargs=+acc work.rr_arbiter_tb
