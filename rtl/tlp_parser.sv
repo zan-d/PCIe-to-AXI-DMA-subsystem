@@ -4,7 +4,7 @@ module tlp_parser (
 
     // TLP Input Interface
     input logic                   tlp_valid,
-    input logic                   tlp_data,
+    input logic [31:0]            tlp_data,
 
     // TLP Output Interface to DMA engine
     output logic                  dma_valid,
@@ -58,9 +58,9 @@ always_ff @(posedge clk or negedge rst_n) begin
 		TLP_STRIP_FILE_HEADER_1: begin
             if (tlp_valid == 1'b1) begin
                 // Process the first TLP header
-                tlp_fmt <= tlp_data[29:30];
-                tlp_type <= tlp_data[24:28];
-                tlp_length <= tlp_data[0:9];
+                tlp_fmt <= tlp_data[30:29];
+                tlp_type <= tlp_data[28:24];
+                tlp_length <= tlp_data[9:0];
 
                 state <= TLP_STRIP_FILE_HEADER_2;
             end
@@ -69,7 +69,7 @@ always_ff @(posedge clk or negedge rst_n) begin
         TLP_STRIP_FILE_HEADER_2: begin
             if (tlp_valid == 1'b1) begin
                 // Process the second TLP header
-                tlp_requester_id <= tlp_data[16:31];
+                tlp_requester_id <= tlp_data[31:16];
                 tlp_tag <= tlp_data[15:8];
 
                 // Determine the type of TLP
@@ -83,7 +83,7 @@ always_ff @(posedge clk or negedge rst_n) begin
 
         TLP_WRITE_FIRST_BYTE_RECEIVE: begin
             if (tlp_valid == 1'b1) begin
-                tlp_addr <= tlp_data[0:31]; // Extract the address from the TLP data
+                tlp_addr <= tlp_data[31:0]; // Extract the address from the TLP data
                 state <= TLP_WRITE_SECOND_BYTE_RECEIVE;
             end
         end
@@ -107,7 +107,7 @@ always_ff @(posedge clk or negedge rst_n) begin
                 // Create the DMA read request based on the TLP information
                 dma_valid <= 1'b1;
                 dma_type <= 1'b1; // Indicate a read operation 
-                dma_addr <= tlp_data[0:31]; // Extract the address from the TLP data
+                dma_addr <= tlp_data[31:0]; // Extract the address from the TLP data
                 dma_length <= tlp_length;
                 dma_tag <= tlp_tag;
                 
@@ -122,6 +122,6 @@ always_ff @(posedge clk or negedge rst_n) begin
         endcase
         
     end
-
+end
 
 endmodule
