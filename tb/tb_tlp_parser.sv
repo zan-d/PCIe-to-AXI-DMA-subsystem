@@ -49,6 +49,7 @@ module tlp_parser_tb;
         input logic [31:0] data
         );
         begin
+            @(posedge clk);
             tlp_valid <= 1'b1;
             @(posedge clk);
             tlp_data <= 32'h40000001; // TLP Header 1: Fmt=0b010, Type=0b00001 (Memory Write)
@@ -69,6 +70,7 @@ module tlp_parser_tb;
         input logic [31:0] addr
         );
         begin
+            @(posedge clk);
             tlp_valid <= 1'b1;
             @(posedge clk);
             tlp_data <=  32'h00000001; // TLP Header 1: Fmt=0b000, Type=0b00001 (Memory Read)
@@ -88,16 +90,28 @@ module tlp_parser_tb;
 
         // Write TLP
         write_tlp(32'h0000_1000, 32'hDEAD_BEEF);
+        #1
+        if (dma_addr !== 32'h0000_1000 || dma_data !== 32'hDEAD_BEEF) begin
+            $display("Error: DMA write request not generated correctly.");
+        end else begin
+            $display("DMA write request generated correctly.");
+        end
         @(posedge clk);
         @(posedge clk);
 
         // Read TLP
         read_tlp(8'h01, 32'h0000_1000);
+        #1
+        if (dma_addr !== 32'h0000_1000 || dma_tag !== 8'h01) begin
+            $display("Error: DMA read request not generated correctly.");
+        end else begin
+            $display("DMA read request generated correctly.");
+        end
         @(posedge clk);
         @(posedge clk);
 
         // Finish simulation
-        $finish;
+        #20;
     end
 
 

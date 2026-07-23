@@ -73,9 +73,9 @@ always_ff @(posedge clk or negedge rst_n) begin
                 tlp_tag <= tlp_data[15:8];
 
                 // Determine the type of TLP
-                if(tlp_type == 2'b00) begin // Memory Read Request
+                if({tlp_fmt,tlp_type} == 8'h00) begin // Memory Read Request
                     state <= TLP_READ_FIRST_BYTE_RECEIVE;
-                end else if(tlp_type == 2'b10) begin // Memory Write Request
+                end else if({tlp_fmt,tlp_type} == 8'h40) begin // Memory Write Request
                     state <= TLP_WRITE_FIRST_BYTE_RECEIVE;
                 end
             end
