@@ -1,5 +1,5 @@
 vlib work
-vlog ../rtl/tlp_parser.sv
-vlog ../tb/tb_tlp_parser.sv
+vlog ../rtl/dma_controller.sv
+vlog ../tb/tb_dma_controller.sv
 
-vsim -voptargs=+acc work.tlp_parser_tb
+vsim -voptargs=+acc work.dma_controller_tb

@@ -47,6 +47,8 @@ module dma_controller_tb;
     initial begin
         // Wait for reset deassertion
         wait(rst_n == 1'b1);
+        axi_ready = 1'b0; // Initially, AXI is not ready
+        axi_done = 1'b0; // Initially, AXI is not done
         
         // Simulate a command in the FIFO
         @(posedge clk);
@@ -67,11 +69,11 @@ module dma_controller_tb;
         // Simulate AXI ready and done signals
         axi_ready = 1'b1; // AXI is ready to accept command
         @(posedge clk);
-        axi_done = 1'b1; // AXI has completed the command
+        axi_done = 1'b0; // AXI is not done
         @(posedge clk);
         axi_ready = 1'b0; // AXI is not ready
         @(posedge clk);
-        axi_done = 1'b0; // AXI is not done
+        axi_done = 1'b1; // AXI has completed the command
 
         #20;
     end
