@@ -19,7 +19,7 @@ module dma_controller (
 
 typedef enum logic [1:0] {
 	DMA_IDLE,
-	DMA_PARSE_CMD,
+	DMA_FIFO_BUFFER,
     DMA_ISSUE_AXI_CMD,
     DMA_WAIT_FOR_AXI_DONE
 } DMA_STATE;
@@ -38,31 +38,31 @@ always_ff @(posedge clk or negedge rst_n) begin
 		DMA_IDLE: begin
 			if (!cmd_fifo_empty) begin
                 cmd_fifo_r_en <= 1'b1; // Enable reading from the FIFO
-                state <= DMA_PARSE_CMD;
+                state <= DMA_FIFO_BUFFER;
             end else begin
                 cmd_fifo_r_en <= 1'b0; // Disable reading if FIFO is empty
             end
 		end
 
-		DMA_PARSE_CMD: begin
+		DMA_FIFO_BUFFER: begin
             // Fetch the command from the cmd FIFO
-            axi_cmd.addr <= cmd_fifo_r_data.addr; // Address from the FIFO
-            axi_cmd.op <= cmd_fifo_r_data.op; // Operation type from the FIFO
-            axi_cmd.data <= cmd_fifo_r_data.data; // Data from the FIFO
-            axi_cmd.tag <= cmd_fifo_r_data.tag; // Tag from the FIFO
-            axi_cmd.valid <= 1'b1; // Assert valid
+            cmd_fifo_r_en <= 1'b0; // Disable reading from the FIFO after fetching the command
             state <= DMA_ISSUE_AXI_CMD;
         end
 
         DMA_ISSUE_AXI_CMD: begin
             if (axi_ready == 1'b1) begin
-                // AXI memory model is ready to accept the command
-                axi_cmd.valid <= 1'b0; // Deassert valid after issuing the command
+                axi_cmd.addr <= cmd_fifo_r_data.addr; // Address from the FIFO
+                axi_cmd.op <= cmd_fifo_r_data.op; // Operation type from the FIFO
+                axi_cmd.data <= cmd_fifo_r_data.data; // Data from the FIFO
+                axi_cmd.tag <= cmd_fifo_r_data.tag; // Tag from the FIFO
+                axi_cmd.valid <= 1'b1; // Assert valid
                 state <= DMA_WAIT_FOR_AXI_DONE;
             end
         end
 
         DMA_WAIT_FOR_AXI_DONE: begin
+            axi_cmd.valid <= 1'b0; // Deassert valid after issuing the command
             if (axi_done == 1'b1) begin
                 // AXI memory model has completed the command
                 state <= DMA_IDLE; // Return to idle state after completion

@@ -12,7 +12,8 @@ module axi_master (
     output logic axi_ready, // Indicates that the AXI memory model is ready to accept a command
     output logic axi_done, // Indicates that the AXI memory model has completed the command
 
-    output read_resp_t axi_read_resp // Read response structure to hold the read data and tag
+    output read_resp_t axi_read_resp, // Read response structure to hold the read data and tag
+    output logic fifo_r_en // Read enable signal for the read response FIFO
 );
 
 typedef enum logic [2:0] {
@@ -123,6 +124,7 @@ always_ff @(posedge clk or negedge rst_n) begin
                 axi_done <= 1'b1; // Indicate that the read operation is done
                 axi_read_resp.tag <= axi_tag_buffer; // Capture the tag for the read response
                 axi_read_resp.data <= axi_if.rdata; // Capture the read data for the read
+                fifo_r_en <= 1'b1; // Assert read enable for the read response FIFO
                 state <= AXI_MASTER_IDLE; // Return to idle state
             end
         end

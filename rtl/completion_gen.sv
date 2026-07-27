@@ -9,7 +9,8 @@ module completion_gen (
     input read_resp_t            axi_rfifo_r_data,
     input logic                  axi_rfifo_empty,
 
-    output complete_tlp_t         tlp_complete
+    output complete_tlp_t         tlp_complete,
+    output logic                  tlp_complete_valid
 );
 
 always_ff@(posedge clk or negedge rst_n) begin
@@ -23,6 +24,7 @@ always_ff@(posedge clk or negedge rst_n) begin
         tlp_complete.requester_id <= 0;
         tlp_complete.tag <= 0;
         tlp_complete.data <= 0;
+        tlp_complete_valid <= 1'b0;
     end else begin
         if (!axi_rfifo_empty) begin
             axi_rfifo_r_en <= 1'b1; // Enable read from FIFO
@@ -35,6 +37,7 @@ always_ff@(posedge clk or negedge rst_n) begin
             tlp_complete.requester_id <= 15'h0000; // Set requester ID, can be set as needed
             tlp_complete.tag <= axi_rfifo_r_data.tag;
             tlp_complete.data <= axi_rfifo_r_data.data; // Capture data for read completions
+            tlp_complete_valid <= 1'b1; // Indicate that a valid completion TLP is available
         end else begin
             axi_rfifo_r_en <= 1'b0; // Disable read from FIFO when empty
         end

@@ -9,7 +9,8 @@ module tlp_parser (
     input logic [31:0]            tlp_data,
 
     // TLP Output Interface to DMA engine
-    output dma_cmd_t              dma_cmd
+    output dma_cmd_t              dma_cmd,
+    output logic                  cmd_fifo_w_en
 );
 
 typedef enum logic [2:0] {
@@ -43,9 +44,11 @@ always_ff @(posedge clk or negedge rst_n) begin
         dma_cmd.length <= 0;
         dma_cmd.data <= 0;
         dma_cmd.tag <= 0;
+        cmd_fifo_w_en <= 1'b0;
     end else begin
 		case (state)
 		TLP_IDLE: begin
+            cmd_fifo_w_en <= 1'b0; // Default to not writing to FIFO
 			if (tlp_valid == 1'b1) begin
 				state <= TLP_STRIP_FILE_HEADER_1;
 			end
@@ -92,6 +95,7 @@ always_ff @(posedge clk or negedge rst_n) begin
                 dma_cmd.length <= tlp_length;
                 dma_cmd.data <= tlp_data; // Assuming the data is in the second byte
                 dma_cmd.tag <= tlp_tag;
+                cmd_fifo_w_en <= 1'b1; // Enable write to the command FIFO
 
                 state <= TLP_IDLE; // Return to idle state after processing
             end
@@ -105,6 +109,7 @@ always_ff @(posedge clk or negedge rst_n) begin
                 dma_cmd.length <= tlp_length;
                 dma_cmd.data <= 0;
                 dma_cmd.tag <= tlp_tag;
+                cmd_fifo_w_en <= 1'b1; // Enable write to the command FIFO
                 
                 state <= TLP_IDLE;
             end

@@ -1,49 +1,35 @@
-C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_axi_interface.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_axi_interface.sv
+C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/top.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/top.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
 ** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
--- Compiling package tb_axi_interface_sv_unit
+-- Compiling package top_sv_unit
 -- Importing package dma_pkg
--- Compiling module axi_interface_tb
+-- Compiling module top
 
 Top level modules:
-	axi_interface_tb
+	top
 
-} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_completion_gen.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_completion_gen.sv
+} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/completion_gen.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/completion_gen.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
 ** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
-** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_completion_gen.sv(1): (vlog-13233) Design unit "tb_completion_gen_sv_unit" already exists and will be overwritten. Overwriting SystemVerilog $unit with different source files.
--- Compiling package tb_completion_gen_sv_unit
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/completion_gen.sv(9): (vlog-13314) Defaulting port 'axi_rfifo_r_data' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/completion_gen.sv(1): (vlog-13233) Design unit "completion_gen_sv_unit" already exists and will be overwritten. Overwriting SystemVerilog $unit with different source files.
+-- Compiling package completion_gen_sv_unit
 -- Importing package dma_pkg
--- Compiling module completion_gen_tb
+-- Compiling module completion_gen
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/completion_gen.sv(9): (vlog-13314) Defaulting port 'axi_rfifo_r_data' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
 
 Top level modules:
-	completion_gen_tb
+	completion_gen
 
-} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/sync_fifo.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/sync_fifo.sv
+} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_top.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/tb/tb_top.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
 ** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
--- Compiling module sync_fifo
-
-Top level modules:
-	sync_fifo
-
-} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_slave.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_slave.sv
-Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
--- Compiling package axi_slave_sv_unit
+-- Compiling package tb_top_sv_unit
 -- Importing package dma_pkg
--- Compiling module axi_slave
+-- Compiling module top_tb
 
 Top level modules:
-	axi_slave
-
-} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_memory_array.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_memory_array.sv
-Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
-** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
--- Compiling module memory_array
-
-Top level modules:
-	memory_array
+	top_tb
 
 } {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/tlp_parser.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/tlp_parser.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
@@ -55,17 +41,32 @@ Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
 Top level modules:
 	tlp_parser
 
-} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv
+} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/sync_fifo.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/sync_fifo.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
 ** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
-** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv(8): (vlog-13314) Defaulting port 'axi_cmd' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
--- Compiling package axi_master_sv_unit
--- Importing package dma_pkg
--- Compiling module axi_master
-** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv(8): (vlog-13314) Defaulting port 'axi_cmd' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+-- Compiling module sync_fifo
 
 Top level modules:
-	axi_master
+	sync_fifo
+
+} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_memory_array.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_memory_array.sv
+Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
+-- Compiling module memory_array
+
+Top level modules:
+	memory_array
+
+} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_slave.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_slave.sv
+Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_slave.sv(1): (vlog-13233) Design unit "axi_slave_sv_unit" already exists and will be overwritten. Overwriting SystemVerilog $unit with different source files.
+-- Compiling package axi_slave_sv_unit
+-- Importing package dma_pkg
+-- Compiling module axi_slave
+
+Top level modules:
+	axi_slave
 
 } {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/dma_controller.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/dma_controller.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
@@ -78,6 +79,19 @@ Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
 
 Top level modules:
 	dma_controller
+
+} {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv {2 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv
+Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025
+** Note: (vlog-220) 'C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/sim/pcie_axi_subsystem.mpf' is used as the ini file.
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv(8): (vlog-13314) Defaulting port 'axi_cmd' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv(1): (vlog-13233) Design unit "axi_master_sv_unit" already exists and will be overwritten. Overwriting SystemVerilog $unit with different source files.
+-- Compiling package axi_master_sv_unit
+-- Importing package dma_pkg
+-- Compiling module axi_master
+** Warning: C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/axi_master.sv(8): (vlog-13314) Defaulting port 'axi_cmd' kind to 'var' rather than 'wire' due to default compile option setting of -svinputport=relaxed.
+
+Top level modules:
+	axi_master
 
 } {} {}} C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/packages/dma_pkg.sv {1 {vlog -work work -vopt -sv -stats=none C:/Users/zrwd3/Projects/PCIe-to-AXI-DMA-subsystem/rtl/packages/dma_pkg.sv
 Questa Altera Starter FPGA Edition-64 vlog 2025.2 Compiler 2025.05 May 31 2025

@@ -30,7 +30,8 @@ module axi_interface_tb;
         .axi_if(axi_if_inst),
         .axi_ready(axi_ready),
         .axi_done(axi_done),
-        .axi_read_resp(axi_read_resp)
+        .axi_read_resp(axi_read_resp),
+        .fifo_r_en(fifo_r_en)
     );
 
     axi_slave axi_slave_inst (
