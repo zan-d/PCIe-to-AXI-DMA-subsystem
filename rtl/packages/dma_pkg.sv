@@ -21,4 +21,9 @@ typedef struct packed {
     logic [7:0]   tag;          // Needed for read completions
 } axi_cmd_t;
 
+typedef struct packed {
+    logic [7:0]    tag; 
+    logic [31:0]   data;
+} read_resp_t;
+
 endpackage
