@@ -1,3 +1,5 @@
+import dma_pkg::*;
+
 module tlp_parser (
     input  logic                  clk,
     input  logic                  rst_n,
@@ -7,12 +9,7 @@ module tlp_parser (
     input logic [31:0]            tlp_data,
 
     // TLP Output Interface to DMA engine
-    output logic                  dma_valid,
-    output logic                  dma_type,
-    output logic [31:0]           dma_addr,
-    output logic [9:0]            dma_length,
-    output logic [31:0]           dma_data,
-    output logic [7:0]            dma_tag
+    output dma_cmd_t              dma_cmd
 );
 
 typedef enum logic [2:0] {
@@ -41,12 +38,11 @@ logic [31:0] tlp_addr;
 
 always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-        dma_valid <= 0;
-        dma_type <= 0;
-        dma_addr <= 0;
-        dma_length <= 0;
-        dma_data <= 0;
-        dma_tag <= 0;
+        dma_cmd.op <= READ;
+        dma_cmd.addr <= 0;
+        dma_cmd.length <= 0;
+        dma_cmd.data <= 0;
+        dma_cmd.tag <= 0;
     end else begin
 		case (state)
 		TLP_IDLE: begin
@@ -91,12 +87,11 @@ always_ff @(posedge clk or negedge rst_n) begin
         TLP_WRITE_SECOND_BYTE_RECEIVE: begin
             if (tlp_valid == 1'b1) begin
                 // Create the DMA write request based on the TLP information
-                dma_valid <= 1'b1;
-                dma_type <= 1'b0; // Indicate a write operation
-                dma_addr <= tlp_addr;
-                dma_length <= tlp_length;
-                dma_data <= tlp_data; // Assuming the data is in the second byte
-                dma_tag <= tlp_tag;
+                dma_cmd.op <= WRITE;
+                dma_cmd.addr <= tlp_addr;
+                dma_cmd.length <= tlp_length;
+                dma_cmd.data <= tlp_data; // Assuming the data is in the second byte
+                dma_cmd.tag <= tlp_tag;
 
                 state <= TLP_IDLE; // Return to idle state after processing
             end
@@ -105,11 +100,11 @@ always_ff @(posedge clk or negedge rst_n) begin
         TLP_READ_FIRST_BYTE_RECEIVE: begin
             if (tlp_valid == 1'b1) begin
                 // Create the DMA read request based on the TLP information
-                dma_valid <= 1'b1;
-                dma_type <= 1'b1; // Indicate a read operation 
-                dma_addr <= tlp_data[31:0]; // Extract the address from the TLP data
-                dma_length <= tlp_length;
-                dma_tag <= tlp_tag;
+                dma_cmd.op <= READ;
+                dma_cmd.addr <= tlp_data[31:0]; // Extract the address from the TLP data
+                dma_cmd.length <= tlp_length;
+                dma_cmd.data <= 0;
+                dma_cmd.tag <= tlp_tag;
                 
                 state <= TLP_IDLE;
             end

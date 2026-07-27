@@ -1,3 +1,5 @@
+import dma_pkg::*;
+
 module tlp_parser_tb;
     logic                  clk;
     logic                  rst_n;
@@ -7,12 +9,7 @@ module tlp_parser_tb;
     logic [31:0]            tlp_data;
 
     // TLP Output Interface to DMA engine
-    logic                  dma_valid;
-    logic                  dma_type;
-    logic [31:0]           dma_addr;
-    logic [9:0]            dma_length;
-    logic [31:0]           dma_data;
-    logic [7:0]            dma_tag;
+    dma_cmd_t               dma_cmd;
 
     // Instantiate the TLP Parser
     tlp_parser tlp_parser_inst (
@@ -20,12 +17,7 @@ module tlp_parser_tb;
         .rst_n(rst_n),
         .tlp_valid(tlp_valid),
         .tlp_data(tlp_data),
-        .dma_valid(dma_valid),
-        .dma_type(dma_type),
-        .dma_addr(dma_addr),
-        .dma_length(dma_length),
-        .dma_data(dma_data),
-        .dma_tag(dma_tag)
+        .dma_cmd(dma_cmd)
     );
 
     // Clock generation
@@ -40,8 +32,8 @@ module tlp_parser_tb;
     end
 
     initial begin
-        $monitor("Time: %0t | TLP Valid: %b | TLP Data: %h | DMA Valid: %b | DMA Type: %b | DMA Addr: %h | DMA Length: %d | DMA Data: %h | DMA Tag: %h",
-                 $time, tlp_valid, tlp_data, dma_valid, dma_type, dma_addr, dma_length, dma_data, dma_tag);    
+        $monitor("Time: %0t | TLP Valid: %b | TLP Data: %h | DMA OP: %b | DMA Addr: %h | DMA Length: %d | DMA Data: %h | DMA Tag: %h",
+                 $time, tlp_valid, tlp_data, dma_cmd.op, dma_cmd.addr, dma_cmd.length, dma_cmd.data, dma_cmd.tag);    
     end
 
     task automatic write_tlp(
@@ -91,7 +83,7 @@ module tlp_parser_tb;
         // Write TLP
         write_tlp(32'h0000_1000, 32'hDEAD_BEEF);
         #1
-        if (dma_addr !== 32'h0000_1000 || dma_data !== 32'hDEAD_BEEF) begin
+        if (dma_cmd.addr !== 32'h0000_1000 || dma_cmd.data !== 32'hDEAD_BEEF) begin
             $display("Error: DMA write request not generated correctly.");
         end else begin
             $display("DMA write request generated correctly.");
@@ -102,7 +94,7 @@ module tlp_parser_tb;
         // Read TLP
         read_tlp(8'h01, 32'h0000_1000);
         #1
-        if (dma_addr !== 32'h0000_1000 || dma_tag !== 8'h01) begin
+        if (dma_cmd.addr !== 32'h0000_1000 || dma_cmd.tag !== 8'h01) begin
             $display("Error: DMA read request not generated correctly.");
         end else begin
             $display("DMA read request generated correctly.");
